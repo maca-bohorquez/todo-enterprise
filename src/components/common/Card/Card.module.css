@@ -1,8 +1,8 @@
 .card {
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
-  margin-bottom: 0.5rem;
+  padding: 1.25rem;
+  margin-bottom: 0.75rem;
   transition: all 0.2s ease;
   background: white;
 }
@@ -21,13 +21,17 @@
 
 .title {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 0.75rem;
-  font-size: 0.875rem;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.title span {
+  font-size: 0.975rem;
   font-weight: 500;
   color: #1F2937;
-  margin: 0;
+  flex: 1;
 }
 
 .expandButton {
@@ -236,4 +240,62 @@
 .menuItem svg {
     width: 1rem;
     height: 1rem;
+}
+
+.metaInfo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.metaContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.dueDate,
+.priority {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    width: fit-content;
+}
+
+.dueDate {
+    background-color: #F1F5F9;
+    color: #475569;
+}
+
+.priority {
+    font-weight: 500;
+    background-color: #F1F5F9;
+}
+
+.priority.high {
+    color: #dc2626;
+    background-color: #FEE2E2;
+}
+
+.priority.medium {
+    color: #B45309;
+    background-color: #FEF3C7;
+}
+
+.priority.low {
+    color: #047857;
+    background-color: #ECFDF5;
+}
+
+/* Mejorar la visualización de los iconos */
+.dueDate svg,
+.priority svg {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
 }

@@ -1,3 +1,4 @@
+import { Button } from '@/components/common/Button/Button';
 import { memo, useState } from 'react';
 import { FiPlus, FiX } from 'react-icons/fi';
 import styles from './LabelPicker.module.css';
@@ -87,14 +88,15 @@ const LabelPicker = memo(({ selectedLabels, onSelect, onClose }: LabelPickerProp
                         />
                     ))}
                 </div>
-                <button
+                <Button
+                    variant="secondary"
+                    size="sm"
+                    startIcon={<FiPlus />}
                     onClick={handleAddLabel}
-                    className={styles.addButton}
                     disabled={!newLabelTitle.trim()}
                 >
-                    <FiPlus />
                     Add
-                </button>
+                </Button>
             </div>
         </div>
     );

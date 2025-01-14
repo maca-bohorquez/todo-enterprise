@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useAuthStore } from '@/store/authStore';
+import { useEffect, useState } from 'react';
 import { FiCalendar, FiChevronsLeft, FiGrid, FiList, FiLogOut } from 'react-icons/fi';
 import { NavLink, useNavigate } from 'react-router-dom';
 import './Navbar.css';
@@ -9,8 +10,17 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({ onCollapse }) => {
     const navigate = useNavigate();
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
     const [isCollapsed, setIsCollapsed] = useState(false);
+    const { user } = useAuthStore();
+
+
+    useEffect(() => {
+        const storedUser = localStorage.getItem('user');
+        if (storedUser && !user) {
+            const parsedUser = JSON.parse(storedUser);
+            useAuthStore.setState({ user: parsedUser, isAuthenticated: true });
+        }
+    }, [user]);
 
     const handleCollapse = () => {
         const newCollapsed = !isCollapsed;
@@ -20,6 +30,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onCollapse }) => {
 
     const handleLogout = () => {
         localStorage.removeItem('user');
+        useAuthStore.setState({ user: null, isAuthenticated: false });
         navigate('/login');
     };
 
@@ -33,17 +44,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onCollapse }) => {
         <nav className={`navbar customScroll ${isCollapsed ? 'collapsed' : ''}`}>
             <div className="navHeader">
                 <div className="navUser">
-                    <img
-                        src={user.avatar || '/default-avatar.png'}
-                        alt=""
-                        className="userAvatar"
-                    />
                     <div className="userInfo">
-                        <span className="userName">{user.email}</span>
-                        <button onClick={handleLogout} className="logoutButton">
-                            <FiLogOut />
-                            <span>Logout</span>
-                        </button>
+                        <span className="userName">{user?.name || 'User'}</span>
                     </div>
                 </div>
             </div>
@@ -65,6 +67,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onCollapse }) => {
                 </ul>
             </div>
 
+            <div className="navLogoutSection">
+                <button onClick={handleLogout} className="logoutButton">
+                    <div className="logoutContent">
+                        <FiLogOut className="navIcon" />
+                        <span>Logout</span>
+                    </div>
+                </button>
+            </div>
+
             <button
                 className="collapseButton"
                 onClick={handleCollapse}
@@ -74,4 +85,4 @@ export const Navbar: React.FC<NavbarProps> = ({ onCollapse }) => {
             </button>
         </nav>
     );
-}; 
+};

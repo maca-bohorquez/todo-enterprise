@@ -84,15 +84,17 @@ export const Card: React.FC<CardProps> = ({ todo, onUpdate, onDelete }) => {
             </div>
           </div>
         </div>
-        {todo.dueDate && (
-          <div className={styles.dueDate}>
-            <FiClock />
-            <span>{formatDateTime(todo.dueDate).date}</span>
+        <div className={styles.metaContainer}>
+          {todo.dueDate && (
+            <div className={styles.dueDate}>
+              <FiClock />
+              <span>{formatDateTime(todo.dueDate).date}</span>
+            </div>
+          )}
+          <div className={styles.priority} style={{ color: getPriorityColor() }}>
+            <FiFlag />
+            <span>{todo.priority}</span>
           </div>
-        )}
-        <div className={styles.priority} style={{ color: getPriorityColor() }}>
-          <FiFlag />
-          <span>{todo.priority}</span>
         </div>
       </div>
 

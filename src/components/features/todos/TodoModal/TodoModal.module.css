@@ -355,19 +355,19 @@
 .metadataList {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
-.dueDateTag {
+.dueDateTag,
+.priorityTag {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.25rem 0.75rem;
-  background-color: var(--primary-color-light);
-  color: var(--primary-color);
-  border-radius: 4px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
   font-size: 0.875rem;
+  background-color: #f7fafc;
 }
 
 .dueDateTag svg {
@@ -500,4 +500,36 @@
   .labelGrid {
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   }
+}
+
+.sideOption button {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.375rem;
+    background: white;
+    color: #4a5568;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.sideOption button:hover {
+    background-color: #f7fafc;
+    border-color: #cbd5e0;
+}
+
+/* Para el calendario */
+.datePickerContainer {
+    position: relative;
+}
+
+.datePickerWrapper {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 0.5rem);
+    z-index: 1100;
 }

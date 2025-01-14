@@ -2,8 +2,9 @@ import { Button } from '@/components/common/Button/Button';
 import { ConfirmationModal } from '@/components/common/ConfirmationModal/ConfirmationModal';
 import { EditButton } from '@/components/common/EditButton/EditButton';
 import type { Todo } from '@/types/todo';
+import { format } from 'date-fns';
 import React, { useState } from 'react';
-import { FiCheck, FiTrash2 } from 'react-icons/fi';
+import { FiCheck, FiClock, FiFlag, FiTrash2 } from 'react-icons/fi';
 import './TodoCard.css';
 
 interface TodoCardProps {
@@ -37,10 +38,24 @@ export const TodoCard: React.FC<TodoCardProps> = ({ todo, onEdit, onDelete }) =>
                                 />
                             </div>
                         </div>
-                        <div className="todo-card-status">
-                            <span className={`status-badge ${todo.status.toLowerCase()}`}>
-                                {todo.status}
-                            </span>
+                        <div className="todo-card-meta">
+                            <div className="todo-card-status">
+                                <span className={`status-badge ${todo.status.toLowerCase()}`}>
+                                    {todo.status}
+                                </span>
+                            </div>
+                            {todo.dueDate && (
+                                <div className="todo-card-due-date">
+                                    <FiClock />
+                                    <span>{format(new Date(todo.dueDate), 'MMM d, yyyy')}</span>
+                                </div>
+                            )}
+                            {todo.priority && (
+                                <div className="todo-card-priority">
+                                    <FiFlag />
+                                    <span>{todo.priority}</span>
+                                </div>
+                            )}
                         </div>
                     </div>
                 ) : (
