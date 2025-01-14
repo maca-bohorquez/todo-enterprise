@@ -1,0 +1,416 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal {
+  background: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 800px;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.modalHeader {
+  padding: 1.5rem;
+  border-bottom: 1px solid #e2e8f0;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.headerActions {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  z-index: 1;
+}
+
+.titleSection {
+  padding-right: 8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.titleInput {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1a202c;
+  padding: 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 0.375rem;
+  width: 100%;
+  background: transparent;
+}
+
+.titleInput:hover {
+  border-color: #e2e8f0;
+}
+
+.titleInput:focus {
+  outline: none;
+  border-color: #3b82f6;
+  background-color: #f8fafc;
+}
+
+.labelList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.labelItem {
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.labelItem:hover {
+  filter: brightness(0.9);
+}
+
+.removeLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  width: 18px;
+  height: 18px;
+  border-color: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.removeLabel:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.modalContent {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  padding: 1.5rem;
+  overflow-y: auto;
+  flex-grow: 1;
+  min-height: 0;
+}
+
+.mainSection {
+  border-right: 1px solid #e2e8f0;
+  padding-right: 2rem;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.descriptionSection h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #4a5568;
+  margin-bottom: 1rem;
+}
+
+.descriptionInput {
+  width: 100%;
+  min-height: 150px;
+  padding: 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  resize: vertical;
+  font-family: inherit;
+  margin-bottom: 1rem;
+}
+
+.descriptionInput:focus {
+  outline: none;
+  border-color: #3182ce;
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+}
+
+.actionButtons {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.sideSection {
+  overflow-y: auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sideOption h4 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #4a5568;
+  margin-bottom: 1rem;
+}
+
+.labelGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.dateTimeInputs {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.dateTimeInputs input {
+  padding: 0.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 0.875rem;
+}
+
+.dateTimeInputs input:focus {
+  outline: none;
+  border-color: #3182ce;
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+}
+
+.priorityOptions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.selectedLabel {
+  border: 2px solid white !important;
+  box-shadow: 0 0 0 2px currentColor;
+}
+
+.selectedPriority {
+  background-color: #f7fafc !important;
+  border: 1px solid currentColor !important;
+}
+
+/* Estilos para los botones dentro del modal */
+.modal button {
+  transition: all 0.2s;
+}
+
+.modal button:hover {
+  transform: translateY(-1px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .modalOverlay {
+    padding: 0;
+  }
+
+  .modal {
+    width: 100%;
+    height: 100vh;
+    border-radius: 0;
+    max-height: 100vh;
+  }
+
+  .modalContent {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1rem;
+  }
+
+  .mainSection {
+    border-right: none;
+    padding-right: 0;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 1.5rem;
+  }
+
+  .headerActions {
+    position: relative;
+    top: auto;
+    right: auto;
+    margin-top: 1rem;
+    justify-content: flex-end;
+  }
+
+  .titleSection {
+    padding-right: 0;
+  }
+
+  .labelGrid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+}
+
+.saveButton {
+  --primary-color: #ebf5ff;
+  --primary-text-color: #2563eb;
+  --primary-hover-color: #dbeafe;
+  --primary-hover-text-color: #2563eb;
+  font-weight: 500;
+  min-width: 80px;
+  border: 1px solid #bfdbfe;
+}
+
+.addButton {
+  --primary-color: #ebf5ff;
+  --primary-text-color: #2563eb;
+  --primary-hover-color: #dbeafe;
+  --primary-hover-text-color: #2563eb;
+  font-weight: 500;
+  min-width: 80px;
+  border: 1px solid #bfdbfe;
+}
+
+.deleteButton {
+  --secondary-color: transparent;
+  --secondary-text-color: #2563EB;
+  --secondary-hover-color: #FEE2E2;
+  --secondary-hover-text-color: #EF4444;
+}
+
+.optionButton {
+  --secondary-color: transparent;
+  --secondary-text-color: #2563EB;
+  --secondary-hover-color: #EBF5FF;
+  --secondary-hover-text-color: #2563EB;
+}
+
+.labelEditModal,
+.datePickerModal,
+.priorityPickerModal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1100;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.labelEditOverlay,
+.datePickerOverlay,
+.priorityPickerOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1050;
+}
+
+.labelEditInput {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.labelEditInput:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.colorPicker {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.colorOption {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.375rem;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.colorOption:hover {
+  transform: scale(1.1);
+}
+
+.colorOption.selected {
+  border-color: white;
+  box-shadow: 0 0 0 2px currentColor;
+}
+
+.labelEditActions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.metadataList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.dueDateTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  background-color: var(--primary-color-light);
+  color: var(--primary-color);
+  border-radius: 4px;
+  font-size: 0.875rem;
+}
+
+.dueDateTag svg {
+  width: 16px;
+  height: 16px;
+}
+
+.dueDateTag span:last-child {
+  opacity: 0.8;
+  font-size: 0.75rem;
+}
+
+.labelList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.labelItem {
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  color: white;
+  cursor: pointer;
+} 

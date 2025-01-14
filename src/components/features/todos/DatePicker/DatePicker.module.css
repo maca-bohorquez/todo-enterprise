@@ -1,0 +1,147 @@
+.container {
+    position: relative;
+    display: inline-block;
+}
+
+.popover {
+    position: fixed;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    width: 300px;
+    border: 1px solid var(--border-color);
+    z-index: 9999;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    background: white;
+    border-radius: 12px 12px 0 0;
+}
+
+.header span {
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+.closeButton {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+.closeButton:hover {
+    background-color: var(--background-hover);
+}
+
+.content {
+    padding: 1rem;
+    background: white;
+}
+
+.calendar {
+    border: none;
+    background: white !important;
+    font-family: inherit;
+    width: 100%;
+}
+
+.calendar :global(.react-datepicker__header) {
+    background-color: white;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.calendar :global(.react-datepicker__current-month),
+.calendar :global(.react-datepicker__day-name) {
+    color: var(--text-dark);
+}
+
+.calendar :global(.react-datepicker__day) {
+    color: var(--text-dark);
+}
+
+.calendar :global(.react-datepicker__day:hover) {
+    background-color: var(--primary-color-light);
+    color: var(--primary-color);
+    border-radius: 4px;
+}
+
+.calendar :global(.react-datepicker__day--selected) {
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 4px;
+}
+
+.timeInput {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background: white;
+}
+
+.timeInput label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.timeInput input {
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background: white;
+    color: var(--text-dark);
+}
+
+.timeInput input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding: 1rem;
+    border-top: 1px solid var(--border-color);
+    background: white;
+    border-radius: 0 0 12px 12px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .popover {
+        position: fixed;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 320px;
+    }
+}
+
+.selectedDate {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0.75rem;
+    background-color: var(--primary-color-light);
+    color: var(--primary-color);
+    border-radius: 4px;
+    font-size: 0.875rem;
+}
+
+.selectedDate svg {
+    width: 16px;
+    height: 16px;
+}

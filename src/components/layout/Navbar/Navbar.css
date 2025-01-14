@@ -1,0 +1,197 @@
+@import '../../../styles/utils.css';
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 280px;
+    background-color: white;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    border-right: 1px solid #edf2f7;
+    transition: all 0.3s ease;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 40;
+}
+
+.navbar.collapsed {
+    width: 80px;
+}
+
+.navbar.customScroll {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e0 transparent;
+}
+
+.navHeader {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #edf2f7;
+    margin-bottom: 1rem;
+}
+
+.navUser {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
+}
+
+.collapsed .navUser {
+    justify-content: center;
+}
+
+.userAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.userInfo {
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.collapsed .userInfo {
+    display: none;
+}
+
+.userName {
+    font-weight: 600;
+    color: #1a202c;
+}
+
+.userGreeting {
+    font-size: 0.875rem;
+    color: #718096;
+}
+
+.collapseButton {
+    position: absolute;
+    right: -32px;
+    bottom: -12px;
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: white;
+    color: #718096;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 41;
+}
+
+.collapsed .collapseButton {
+    transform: rotate(180deg);
+}
+
+.collapseButton:hover {
+    background-color: #f7fafc;
+    color: #4a5568;
+}
+
+.navSectionTitle {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #718096;
+    margin-bottom: 1rem;
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+}
+
+.collapsed .navSectionTitle {
+    text-align: center;
+}
+
+.navList {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.navItem {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    color: #4a5568;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.navItem:hover {
+    background-color: #f7fafc;
+}
+
+.navItem.active {
+    background-color: #ebf8ff;
+    color: #3182ce;
+}
+
+.navIcon {
+    font-size: 1.25rem;
+    min-width: 20px;
+}
+
+.collapsed .navItem span {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        top: auto;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+        padding: 0.5rem;
+        border-right: none;
+        border-top: 1px solid #edf2f7;
+        transform: none;
+    }
+
+    .navbar.collapsed {
+        width: 100%;
+        transform: none;
+    }
+
+    .navHeader,
+    .navSectionTitle,
+    .navItem span,
+    .collapseButton {
+        display: none;
+    }
+
+    .navList {
+        flex-direction: row;
+        justify-content: space-around;
+        margin: 0;
+        padding: 0;
+    }
+
+    .navItem {
+        padding: 0.5rem;
+        justify-content: center;
+    }
+
+    .navIcon {
+        font-size: 1.5rem;
+    }
+} 

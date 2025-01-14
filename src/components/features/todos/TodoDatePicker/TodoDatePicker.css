@@ -1,0 +1,31 @@
+.todo-date-picker {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.date-input,
+.time-input {
+    flex: 1;
+}
+
+.todo-date-picker label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    color: #64748b;
+}
+
+.todo-date-picker input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+}
+
+.todo-date-picker input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    ring: 2px solid #eff6ff;
+} 

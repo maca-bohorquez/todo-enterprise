@@ -1,0 +1,51 @@
+.task-carousel {
+    margin-bottom: 2rem;
+}
+
+.carousel-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 1rem;
+}
+
+.carousel-container {
+    position: relative;
+    padding: 0.5rem 0;
+}
+
+.carousel-content {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding: 0.5rem;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+.carousel-content::-webkit-scrollbar {
+    height: 8px;
+}
+
+.carousel-content::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 4px;
+}
+
+.carousel-content::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+.carousel-item {
+    flex: 0 0 300px;
+    max-width: 300px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 2rem;
+    color: #64748b;
+    background: #f8fafc;
+    border-radius: 0.5rem;
+} 

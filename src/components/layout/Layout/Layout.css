@@ -1,0 +1,36 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f7fafc;
+}
+
+.mainWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin-left: 280px;
+  transition: margin-left 0.3s ease;
+}
+
+.mainWrapper.expanded {
+  margin-left: 80px;
+}
+
+.mainContent {
+  flex: 1;
+  padding: 2rem;
+  margin-top: 64px; /* altura del header */
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .mainWrapper {
+    margin-left: 0;
+    padding-bottom: 60px; /* espacio para el navbar móvil */
+  }
+
+  .mainWrapper.expanded {
+    margin-left: 0;
+  }
+} 

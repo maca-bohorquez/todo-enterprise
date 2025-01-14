@@ -1,0 +1,104 @@
+.calendar-wrapper {
+  padding: 1rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.modern-calendar {
+  font-family: var(--font-primary);
+}
+
+/* Cabecera del calendario */
+.rbc-header {
+  padding: 1rem;
+  background: #f8fafc;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+/* Eventos */
+.rbc-event {
+  background-color: #3b82f6;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 0.875rem;
+}
+
+.rbc-event.rbc-selected {
+  background-color: #2563eb;
+}
+
+/* Celdas del día */
+.rbc-day-bg {
+  transition: background-color 0.2s;
+}
+
+.rbc-day-bg:hover {
+  background-color: #f1f5f9;
+}
+
+/* Toolbar */
+.rbc-toolbar {
+  margin-bottom: 2rem;
+}
+
+.rbc-toolbar button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #e2e8f0;
+  background: white;
+  color: #64748b;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.rbc-toolbar button:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+.rbc-toolbar button.rbc-active {
+  background: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+}
+
+/* Hoy */
+.rbc-today {
+  background-color: #eff6ff;
+}
+
+/* Mes actual vs otros meses */
+.rbc-off-range-bg {
+  background: #f8fafc;
+}
+
+/* Tiempo ahora */
+.rbc-current-time-indicator {
+  background-color: #3b82f6;
+  height: 2px;
+}
+
+.event-pending {
+  background-color: #f59e0b !important;
+  border: none !important;
+}
+
+.event-in-progress {
+  background-color: #3b82f6 !important;
+  border: none !important;
+}
+
+.event-completed {
+  background-color: #10b981 !important;
+  border: none !important;
+}
+
+.rbc-event {
+  padding: 4px 8px !important;
+  border-radius: 4px !important;
+  color: white !important;
+} 

@@ -1,0 +1,18 @@
+.tasks-page {
+  padding: 2rem;
+}
+
+.tasks-header {
+  margin-bottom: 2rem;
+}
+
+.tasks-header h1 {
+  font-size: 1.875rem;
+  font-weight: 600;
+  color: #1a202c;
+  margin-bottom: 0.5rem;
+}
+
+.tasks-header p {
+  color: #718096;
+} 
