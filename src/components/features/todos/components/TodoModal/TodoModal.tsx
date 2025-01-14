@@ -4,11 +4,12 @@ import { Todo, TodoPriority } from '@/types/todo';
 import { format } from 'date-fns';
 import { useState } from 'react';
 import { FiClock } from 'react-icons/fi';
-import { LuX } from 'react-icons/lu';
+import { LuCheck, LuX } from 'react-icons/lu';
 
-import { DatePicker } from '../DatePicker/DatePicker';
-import { LabelPicker } from '../LabelPicker/LabelPicker';
-import { PriorityPicker } from '../PriorityPicker/PriorityPicker';
+import { CheckList } from '@/components/common/CheckList';
+import { DatePicker } from '../../DatePicker/DatePicker';
+import { LabelPicker } from '../../LabelPicker/LabelPicker';
+import { PriorityPicker } from '../../PriorityPicker/PriorityPicker';
 import styles from './TodoModal.module.css';
 
 interface TodoModalProps {
@@ -30,6 +31,18 @@ interface EditingLabel {
     color: string;
 }
 
+interface ChecklistItem {
+    id: string;
+    text: string;
+    completed: boolean;
+}
+
+interface Checklist {
+    id: string;
+    title: string;
+    items: ChecklistItem[];
+}
+
 export const TodoModal: React.FC<TodoModalProps> = ({
     todo,
     onClose,
@@ -48,10 +61,13 @@ export const TodoModal: React.FC<TodoModalProps> = ({
     const [title, setTitle] = useState(todo.title);
     const [description, setDescription] = useState(todo.description || '');
     const [dueDate, setDueDate] = useState(todo.dueDate || '');
-    const [priority, setPriority] = useState<TodoPriority | undefined>(todo.priority);
+    const [priority, setPriority] = useState<TodoPriority>(todo.priority || 'medium');
     const [labels, setLabels] = useState<Label[]>(todo.labels || []);
     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
     const [editingLabel, setEditingLabel] = useState<EditingLabel | null>(null);
+    const [showChecklistForm, setShowChecklistForm] = useState(false);
+    const [checklists, setChecklists] = useState<Checklist[]>([]);
+    const [newChecklistTitle, setNewChecklistTitle] = useState('');
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -100,6 +116,23 @@ export const TodoModal: React.FC<TodoModalProps> = ({
             priority === 'medium' ? '#F59E0B' :
                 '#10B981';
 
+    const handleAddChecklist = (title: string) => {
+        if (!title.trim()) return;
+
+        const newChecklist: Checklist = {
+            id: Date.now().toString(),
+            title,
+            items: []
+        };
+        setChecklists([...checklists, newChecklist]);
+        setShowChecklistForm(false);
+        setNewChecklistTitle('');
+    };
+
+    const handleDeleteChecklist = (id: string) => {
+        setChecklists(checklists.filter(cl => cl.id !== id));
+    };
+
     return (
         <div className={styles.modalOverlay} onClick={handleOverlayClick}>
             <div className={styles.modal} onClick={e => e.stopPropagation()}>
@@ -122,11 +155,6 @@ export const TodoModal: React.FC<TodoModalProps> = ({
                             className={styles.titleInput}
                             placeholder="Task title"
                         />
-                        {priority && (
-                            <div className={styles.priorityLabel} style={{ color: getPriorityColor(priority) }}>
-                                {priority.charAt(0).toUpperCase() + priority.slice(1)}
-                            </div>
-                        )}
                         <div className={styles.metadataList}>
                             {labels.length > 0 && (
                                 <div className={styles.labelList}>
@@ -142,6 +170,11 @@ export const TodoModal: React.FC<TodoModalProps> = ({
                                     ))}
                                 </div>
                             )}
+                            {priority && (
+                                <div className={styles.priorityLabel} style={{ color: getPriorityColor(priority) }}>
+                                    {priority.charAt(0).toUpperCase() + priority.slice(1)}
+                                </div>
+                            )}
                             {dueDate && (
                                 <div className={styles.dueDateTag}>
                                     <FiClock />
@@ -149,7 +182,6 @@ export const TodoModal: React.FC<TodoModalProps> = ({
                                     <span>{formatDateTime(dueDate).time}</span>
                                 </div>
                             )}
-
                         </div>
                     </div>
                 </div>
@@ -202,16 +234,41 @@ export const TodoModal: React.FC<TodoModalProps> = ({
                     </div>
                 )}
 
-                <div className={styles.modalContent}>
-                    <div className={styles.mainSection}>
+                <div className={`${styles.modalContent} customScroll`}>
+                    <div className={`${styles.mainSection} customScroll`}>
                         <div className={styles.descriptionSection}>
                             <h3>Description</h3>
                             <textarea
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
                                 placeholder="Add a more detailed description..."
-                                className={styles.descriptionInput}
+                                className={`${styles.descriptionInput} customScroll`}
                             />
+                            <div className={`${styles.checklistsContainer} customScroll`}>
+                                {checklists.map(checklist => (
+                                    <div className={styles.checklistSection} key={checklist.id}>
+                                        <div className={styles.checklistHeader}>
+                                            <h3>{checklist.title}</h3>
+                                            <Button
+                                                variant="secondary"
+                                                size="sm"
+                                                onClick={() => handleDeleteChecklist(checklist.id)}
+                                                className={styles.deleteButton}
+                                            >
+                                                Delete
+                                            </Button>
+                                        </div>
+                                        <CheckList
+                                            items={checklist.items}
+                                            onChange={(items) => {
+                                                setChecklists(checklists.map(cl =>
+                                                    cl.id === checklist.id ? { ...cl, items } : cl
+                                                ));
+                                            }}
+                                        />
+                                    </div>
+                                ))}
+                            </div>
                             <div className={styles.actionButtons}>
                                 <Button
                                     variant="primary"
@@ -232,7 +289,7 @@ export const TodoModal: React.FC<TodoModalProps> = ({
                         </div>
                     </div>
 
-                    <div className={styles.sideSection}>
+                    <div className={`${styles.sideSection} customScroll`}>
                         <LabelPicker
                             labels={labels}
                             onLabelsChange={setLabels}
@@ -242,12 +299,48 @@ export const TodoModal: React.FC<TodoModalProps> = ({
                             onDateChange={setDueDate}
                         />
                         <PriorityPicker
-                            priority={priority || 'medium'}
-                            onPriorityChange={(newPriority) => {
-                                setPriority(newPriority);
-                                onUpdate({ priority: newPriority });
-                            }}
+                            priority={priority}
+                            onPriorityChange={setPriority}
                         />
+                        <Button
+                            variant="secondary"
+                            size="sm"
+                            startIcon={<LuCheck />}
+                            onClick={() => setShowChecklistForm(true)}
+                            className={styles.optionButton}
+                        >
+                            Add Checklist
+                        </Button>
+
+                        {showChecklistForm && (
+                            <div className={styles.checklistForm}>
+                                <input
+                                    type="text"
+                                    placeholder="Checklist title..."
+                                    className={styles.checklistTitleInput}
+                                    value={newChecklistTitle}
+                                    onChange={(e) => setNewChecklistTitle(e.target.value)}
+                                    autoFocus
+                                />
+                                <div className={styles.checklistFormActions}>
+                                    <Button
+                                        variant="primary"
+                                        size="sm"
+                                        onClick={() => handleAddChecklist(newChecklistTitle)}
+                                        disabled={!newChecklistTitle.trim()}
+                                    >
+                                        Add
+                                    </Button>
+                                    <Button
+                                        variant="secondary"
+                                        size="sm"
+                                        onClick={() => setShowChecklistForm(false)}
+                                    >
+                                        Cancel
+                                    </Button>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

@@ -1,0 +1,163 @@
+.todo-card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border-left: 4px solid #3182ce;
+}
+
+.todo-card:hover {
+    box-shadow: 0 4px 6px rgba(49, 130, 206, 0.1);
+    transform: translateY(-2px);
+}
+
+.todo-card-preview {
+    padding: 1.25rem;
+}
+
+.todo-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.todo-card-header h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #1F2937;
+    flex: 1;
+}
+
+.todo-card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+}
+
+.todo-card-due-date,
+.todo-card-priority {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.375rem;
+    font-size: 0.75rem;
+    background-color: #f7fafc;
+}
+
+.todo-card-priority {
+    font-weight: 500;
+}
+
+.todo-card-priority.high {
+    color: #dc2626;
+    background-color: #fee2e2;
+}
+
+.todo-card-priority.medium {
+    color: #d97706;
+    background-color: #fef3c7;
+}
+
+.todo-card-priority.low {
+    color: #059669;
+    background-color: #d1fae5;
+}
+
+.status-badge {
+    display: inline-flex;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.status-badge.todo {
+    background-color: #EDF2F7;
+    color: #4A5568;
+}
+
+.status-badge.in_progress {
+    background-color: #E6FFFA;
+    color: #319795;
+}
+
+.status-badge.done {
+    background-color: #F0FFF4;
+    color: #38A169;
+}
+
+.todo-card.expanded {
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+    cursor: default;
+    box-shadow: 0 4px 6px rgba(49, 130, 206, 0.1);
+}
+
+.todo-card-expanded {
+    padding: 1.5rem;
+}
+
+.title-input {
+    flex: 1;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    color: #1F2937;
+    background-color: #f8fafc;
+    transition: all 0.2s ease;
+}
+
+.title-input:focus {
+    outline: none;
+    border-color: #3182ce;
+    box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+    background-color: white;
+}
+
+.status-select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.375rem;
+    background-color: #f8fafc;
+    color: #1e293b;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+}
+
+.status-select:focus {
+    outline: none;
+    border-color: #3182ce;
+    box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+    background-color: white;
+}
+
+.todo-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+@media (max-width: 640px) {
+    .todo-card {
+        margin: 0.5rem 0;
+    }
+}
+
+.delete-btn {
+    color: #2563EB !important;
+}
+
+.delete-btn:hover {
+    color: #EF4444 !important;
+    background: #FEE2E2 !important;
+} 

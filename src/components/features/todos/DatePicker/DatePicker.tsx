@@ -87,12 +87,13 @@ export const DatePicker: React.FC<DatePickerProps> = ({
 
     return (
         <>
-            <div ref={buttonRef}>
+            <div ref={buttonRef} className={styles.container}>
                 <Button
                     variant="secondary"
                     size="sm"
                     startIcon={<LuCalendarClock />}
                     onClick={() => setIsOpen(!isOpen)}
+                    className={styles.dateButton}
                 >
                     {selectedDate
                         ? selectedDate.toLocaleDateString('en-US', {

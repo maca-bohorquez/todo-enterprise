@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FiClock, FiFlag } from 'react-icons/fi';
 import { LuTrash2 } from 'react-icons/lu';
-import { TodoModal } from '../../features/todos/TodoModal/TodoModal';
+import { TodoModal } from '../../features/todos/components/TodoModal/TodoModal';
 import { EditButton } from '../EditButton/EditButton';
 import styles from './Card.module.css';
 

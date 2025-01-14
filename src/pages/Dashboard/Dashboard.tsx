@@ -1,11 +1,10 @@
 import { TaskCarousel } from '@/components/features/home/TaskCarousel/TaskCarousel';
 import { useTodoStore } from '@/store/todoStore';
-import React from 'react';
 import { FiArrowRight } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import './Dashboard.css';
 
-const Dashboard: React.FC = () => {
+const Dashboard = () => {
   const { todos, updateTodo, deleteTodo } = useTodoStore();
   const navigate = useNavigate();
 

@@ -147,15 +147,13 @@
 }
 
 .confirmButton {
-  --primary-color: #EBF5FF !important;
-  --primary-text-color: #2563EB !important;
-  --primary-hover-color: #DBEAFE !important;
-  --primary-hover-text-color: #2563EB !important;
-  border: 1px solid #BFDBFE !important;
+  background-color: #2563EB;
+  color: white;
+  border: none;
 }
 
 .confirmButton:hover {
-  background-color: #4338CA;
+  background-color: #1D4ED8;
 }
 
 @keyframes slideIn {

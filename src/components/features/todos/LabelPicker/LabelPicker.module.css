@@ -74,15 +74,44 @@
     width: 100%;
     justify-content: flex-start;
     text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: #EBF5FF;
+    border: none;
+    border-radius: 0.5rem;
+    color: #3B82F6;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.optionButton:hover {
+    background: #DBEAFE;
 }
 
 .saveButton {
     width: 100%;
-    --primary-color: #EBF5FF !important;
-    --primary-text-color: #2563EB !important;
-    --primary-hover-color: #DBEAFE !important;
-    --primary-hover-text-color: #2563EB !important;
-    border: 1px solid #BFDBFE !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: #EBF5FF;
+    border: none;
+    border-radius: 0.5rem;
+    color: #3B82F6;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.saveButton:hover {
+    background: #DBEAFE;
 }
 
 .saveButton:disabled {

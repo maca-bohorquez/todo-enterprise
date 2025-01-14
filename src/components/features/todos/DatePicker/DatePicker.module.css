@@ -1,6 +1,7 @@
 .container {
     position: relative;
     display: inline-block;
+    width: 100%;
 }
 
 .popover {
@@ -144,4 +145,10 @@
 .selectedDate svg {
     width: 16px;
     height: 16px;
+}
+
+.dateButton {
+    width: 100%;
+    justify-content: flex-start;
+    text-align: left;
 }
