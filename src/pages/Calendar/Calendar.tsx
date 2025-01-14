@@ -1,9 +1,10 @@
 import { TaskCalendar } from '@/components/features/calendar/TaskCalendar/TaskCalendar';
 import { useTodoStore } from '@/store/todoStore';
 import type { Todo } from '@/types/todo';
+import React from 'react';
 import './Calendar.css';
 
-export const Calendar = () => {
+const Calendar: React.FC = () => {
     const { todos } = useTodoStore();
 
     const handleSelectEvent = (todo: Todo) => {
@@ -22,4 +23,6 @@ export const Calendar = () => {
             />
         </div>
     );
-}; 
+};
+
+export default Calendar; 

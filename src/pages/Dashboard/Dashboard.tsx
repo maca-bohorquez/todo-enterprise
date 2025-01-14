@@ -1,10 +1,11 @@
 import { TaskCarousel } from '@/components/features/home/TaskCarousel/TaskCarousel';
 import { useTodoStore } from '@/store/todoStore';
+import React from 'react';
 import { FiArrowRight } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import './Dashboard.css';
 
-export const Dashboard = () => {
+const Dashboard: React.FC = () => {
   const { todos, updateTodo, deleteTodo } = useTodoStore();
   const navigate = useNavigate();
 
@@ -48,4 +49,6 @@ export const Dashboard = () => {
       </div>
     </div>
   );
-}; 
+};
+
+export default Dashboard; 

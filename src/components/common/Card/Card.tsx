@@ -1,8 +1,13 @@
+import { Button } from '@/components/common/Button/Button';
+import { ConfirmationModal } from '@/components/common/ConfirmationModal/ConfirmationModal';
 import type { Todo } from '@/types/todo';
 import { format } from 'date-fns';
-import { useState } from 'react';
-import { FiClock, FiEdit2, FiFlag } from 'react-icons/fi';
+import { useEffect, useRef, useState } from 'react';
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { FiClock, FiFlag } from 'react-icons/fi';
+import { LuTrash2 } from 'react-icons/lu';
 import { TodoModal } from '../../features/todos/TodoModal/TodoModal';
+import { EditButton } from '../EditButton/EditButton';
 import styles from './Card.module.css';
 
 interface CardProps {
@@ -14,6 +19,20 @@ interface CardProps {
 
 export const Card: React.FC<CardProps> = ({ todo, onUpdate, onDelete }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showOptionsMenu, setShowOptionsMenu] = useState(false);
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const optionsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (optionsRef.current && !optionsRef.current.contains(event.target as Node)) {
+        setShowOptionsMenu(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const getPriorityColor = () => {
     switch (todo.priority) {
@@ -34,50 +53,46 @@ export const Card: React.FC<CardProps> = ({ todo, onUpdate, onDelete }) => {
 
   return (
     <>
-      <div
-        className={`${styles.card} ${styles[todo.status.toLowerCase()]}`}
-        style={{
-          borderLeft: todo.labels?.length ? `4px solid ${todo.labels[0].color}` : undefined
-        }}
-      >
+      <div className={styles.card}>
         <div className={styles.title}>
-          <span>{todo.title}</span>
-          <button
-            className={styles.editButton}
-            onClick={() => setIsModalOpen(true)}
-          >
-            <FiEdit2 />
-          </button>
+          <span onClick={() => setIsModalOpen(true)}>{todo.title}</span>
+          <div className={styles.cardActions}>
+            <EditButton onClick={() => setIsModalOpen(true)} />
+            <div className={styles.optionsContainer} ref={optionsRef}>
+              <Button
+                variant='secondary'
+                size="sm"
+                onClick={() => setShowOptionsMenu(!showOptionsMenu)}
+                className={styles.optionsButton}
+              >
+                <BsThreeDotsVertical />
+              </Button>
+              {showOptionsMenu && (
+                <div className={styles.optionsMenu}>
+                  <button
+                    className={styles.menuItem}
+                    onClick={() => {
+                      setShowDeleteConfirmation(true);
+                      setShowOptionsMenu(false);
+                    }}
+                  >
+                    <LuTrash2 />
+                    Delete Task
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
-
-        {todo.labels?.length > 0 && (
-          <span
-            className={styles.label}
-            style={{ backgroundColor: todo.labels[0].color }}
-          >
-            {todo.labels[0].title}
-          </span>
+        {todo.dueDate && (
+          <div className={styles.dueDate}>
+            <FiClock />
+            <span>{formatDateTime(todo.dueDate).date}</span>
+          </div>
         )}
-
-        <div className={styles.details}>
-          {todo.dueDate && (
-            <div className={styles.dueDate}>
-              <FiClock />
-              <div className={styles.dateTimeInfo}>
-                <span>{formatDateTime(todo.dueDate).date}</span>
-                <span>{formatDateTime(todo.dueDate).time}</span>
-              </div>
-            </div>
-          )}
-          {todo.priority && (
-            <div
-              className={styles.priority}
-              style={{ color: getPriorityColor() }}
-            >
-              <FiFlag />
-              <span>{todo.priority}</span>
-            </div>
-          )}
+        <div className={styles.priority} style={{ color: getPriorityColor() }}>
+          <FiFlag />
+          <span>{todo.priority}</span>
         </div>
       </div>
 
@@ -87,6 +102,18 @@ export const Card: React.FC<CardProps> = ({ todo, onUpdate, onDelete }) => {
           onClose={() => setIsModalOpen(false)}
           onUpdate={(updates) => onUpdate(todo.id, updates)}
           onDelete={() => onDelete(todo.id)}
+        />
+      )}
+
+      {showDeleteConfirmation && (
+        <ConfirmationModal
+          title="Delete Task"
+          message="Are you sure you want to delete this task? This action cannot be undone."
+          onConfirm={() => {
+            onDelete(todo.id);
+            setShowDeleteConfirmation(false);
+          }}
+          onCancel={() => setShowDeleteConfirmation(false)}
         />
       )}
     </>

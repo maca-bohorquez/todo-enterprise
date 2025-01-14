@@ -184,3 +184,56 @@
 .dateTimeInfo span:last-child {
     font-size: 0.75rem;
 }
+
+.cardActions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.optionsContainer {
+    position: relative;
+}
+
+.optionsButton {
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.optionsMenu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 0.5rem;
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-color);
+    z-index: 1000;
+}
+
+.menuItem {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    width: 100%;
+    border: none;
+    background: none;
+    color: var(--text-danger);
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 0.875rem;
+    white-space: nowrap;
+}
+
+.menuItem:hover {
+    background-color: var(--background-hover);
+}
+
+.menuItem svg {
+    width: 1rem;
+    height: 1rem;
+}

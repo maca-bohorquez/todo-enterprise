@@ -10,9 +10,9 @@ export const Layout = () => {
     return (
         <div className="layout">
             <Navbar onCollapse={setIsNavCollapsed} />
-            <div className="mainWrapper">
-                <Header className={isNavCollapsed ? 'expanded' : ''} />
-                <main className={`mainContent ${isNavCollapsed ? 'expanded' : ''}`}>
+            <div className={`mainWrapper ${isNavCollapsed ? 'collapsed' : ''}`}>
+                <Header />
+                <main className="mainContent">
                     <Outlet />
                 </main>
             </div>

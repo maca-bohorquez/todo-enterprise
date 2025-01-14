@@ -1,12 +1,20 @@
+import { LoadingSpinner } from '@/components/common/LoadingSpinner/LoadingSpinner';
 import { Layout } from '@/components/layout/Layout/Layout';
-import { Calendar } from '@/pages/Calendar/Calendar';
-import { Dashboard } from '@/pages/Dashboard/Dashboard';
-import { Login } from '@/pages/Login/Login';
-import { Tasks } from '@/pages/Tasks/Tasks';
 import { useAuthStore } from '@/store/authStore';
+import { lazy, Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
+// Lazy imports
+const Dashboard = lazy(() => import('@/pages/Dashboard'));
+const Login = lazy(() => import('@/pages/Login'));
+const Calendar = lazy(() => import('@/pages/Calendar'));
+const Tasks = lazy(() => import('@/pages/Tasks'));
+
+interface PrivateRouteProps {
+  children: React.ReactNode;
+}
+
+const PrivateRoute = ({ children }: PrivateRouteProps) => {
   const isAuthenticated = useAuthStore(state => state.isAuthenticated);
   return isAuthenticated ? children : <Navigate to="/login" />;
 };
@@ -15,25 +23,31 @@ export const AppRoutes = () => {
   const isAuthenticated = useAuthStore(state => state.isAuthenticated);
 
   return (
-    <Routes>
-      {/* Ruta pública */}
-      <Route path="/login" element={
-        !isAuthenticated ? <Login /> : <Navigate to="/dashboard" />
-      } />
+    <Suspense fallback={<LoadingSpinner />}>
+      <Routes>
 
-      {/* Rutas privadas */}
-      <Route path="/" element={
-        <PrivateRoute>
-          <Layout />
-        </PrivateRoute>
-      }>
-        <Route index element={<Navigate to="/dashboard" replace />} />
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="tasks" element={<Tasks />} />
-        <Route path="calendar" element={<Calendar />} />
-      </Route>
+        <Route
+          path="/login"
+          element={isAuthenticated ? <Navigate to="/dashboard" /> : <Login />}
+        />
 
-      <Route path="*" element={<Navigate to="/dashboard" replace />} />
-    </Routes>
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <Layout />
+            </PrivateRoute>
+          }
+        >
+          <Route index element={<Navigate to="/dashboard" replace />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="tasks" element={<Tasks />} />
+          <Route path="calendar" element={<Calendar />} />
+        </Route>
+
+
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
+      </Routes>
+    </Suspense>
   );
 };

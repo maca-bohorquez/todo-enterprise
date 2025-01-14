@@ -1,15 +1,15 @@
+import { TodoStatus } from '@/types/todo';
 import React from 'react';
 import styles from './TodoFilter.module.css';
-import { TodoStatus } from '@/types/todo';
 
 interface TodoFilterProps {
   currentFilter: TodoStatus | 'all';
   onFilterChange: (filter: TodoStatus | 'all') => void;
 }
 
-export const TodoFilter: React.FC<TodoFilterProps> = ({ 
+export const TodoFilter: React.FC<TodoFilterProps> = ({
   currentFilter = 'all',
-  onFilterChange 
+  onFilterChange
 }) => {
   return (
     <div className={styles.filterContainer}>
@@ -21,20 +21,20 @@ export const TodoFilter: React.FC<TodoFilterProps> = ({
           All
         </button>
         <button
-          className={`${styles.filterButton} ${currentFilter === 'pending' ? styles.active : ''}`}
-          onClick={() => onFilterChange('pending')}
+          className={`${styles.filterButton} ${currentFilter === 'TODO' ? styles.active : ''}`}
+          onClick={() => onFilterChange('TODO')}
         >
-          To Do
+          Pending
         </button>
         <button
-          className={`${styles.filterButton} ${currentFilter === 'in-progress' ? styles.active : ''}`}
-          onClick={() => onFilterChange('in-progress')}
+          className={`${styles.filterButton} ${currentFilter === 'IN_PROGRESS' ? styles.active : ''}`}
+          onClick={() => onFilterChange('IN_PROGRESS')}
         >
           In Progress
         </button>
         <button
-          className={`${styles.filterButton} ${currentFilter === 'completed' ? styles.active : ''}`}
-          onClick={() => onFilterChange('completed')}
+          className={`${styles.filterButton} ${currentFilter === 'DONE' ? styles.active : ''}`}
+          onClick={() => onFilterChange('DONE')}
         >
           Completed
         </button>

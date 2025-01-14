@@ -1,6 +1,6 @@
 import { Button } from '@/components/common/Button/Button';
 import { TodoPriority } from '@/types/todo';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { LuFlag } from 'react-icons/lu';
 import styles from './PriorityPicker.module.css';
 
@@ -14,6 +14,7 @@ export const PriorityPicker: React.FC<PriorityPickerProps> = ({
     onPriorityChange
 }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const containerRef = useRef<HTMLDivElement>(null);
 
     const priorities = [
         { value: 'low', label: 'Low', color: '#10B981' },
@@ -21,8 +22,19 @@ export const PriorityPicker: React.FC<PriorityPickerProps> = ({
         { value: 'high', label: 'High', color: '#EF4444' }
     ] as const;
 
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
     return (
-        <div className={styles.priorityPickerContainer}>
+        <div className={styles.priorityPickerContainer} ref={containerRef}>
             <Button
                 variant="secondary"
                 size="sm"

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FiCalendar, FiChevronsLeft, FiGrid, FiList, FiLogOut } from 'react-icons/fi';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 
 interface NavbarProps {
@@ -11,7 +11,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onCollapse }) => {
     const navigate = useNavigate();
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     const [isCollapsed, setIsCollapsed] = useState(false);
-    const location = useLocation();
 
     const handleCollapse = () => {
         const newCollapsed = !isCollapsed;

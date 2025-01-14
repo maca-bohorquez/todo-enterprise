@@ -1,5 +1,5 @@
 export type TodoStatus = 'TODO' | 'IN_PROGRESS' | 'DONE';
-export type TodoPriority = 'low' | 'medium' | 'high';
+export type TodoPriority = 'highest' | 'high' | 'medium' | 'low' | 'lowest';
 
 export interface Todo {
   id: string;
@@ -14,4 +14,6 @@ export interface Todo {
     title: string;
     color: string;
   }>;
+  createdAt: string;
+  updatedAt: string;
 } 

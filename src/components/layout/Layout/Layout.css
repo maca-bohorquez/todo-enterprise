@@ -13,24 +13,23 @@
   transition: margin-left 0.3s ease;
 }
 
-.mainWrapper.expanded {
+.mainWrapper.collapsed {
   margin-left: 80px;
 }
 
 .mainContent {
   flex: 1;
-  padding: 2rem;
-  margin-top: 64px; /* altura del header */
+  padding: 1rem;
   overflow-y: auto;
 }
 
 @media (max-width: 768px) {
   .mainWrapper {
     margin-left: 0;
-    padding-bottom: 60px; /* espacio para el navbar móvil */
+    padding-bottom: 60px;
   }
 
-  .mainWrapper.expanded {
+  .mainWrapper.collapsed {
     margin-left: 0;
   }
 } 

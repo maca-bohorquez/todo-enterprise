@@ -4,7 +4,8 @@ import { Todo, TodoPriority } from '@/types/todo';
 import { format } from 'date-fns';
 import { useState } from 'react';
 import { FiClock } from 'react-icons/fi';
-import { LuTrash2, LuX } from 'react-icons/lu';
+import { LuX } from 'react-icons/lu';
+
 import { DatePicker } from '../DatePicker/DatePicker';
 import { LabelPicker } from '../LabelPicker/LabelPicker';
 import { PriorityPicker } from '../PriorityPicker/PriorityPicker';
@@ -47,7 +48,7 @@ export const TodoModal: React.FC<TodoModalProps> = ({
     const [title, setTitle] = useState(todo.title);
     const [description, setDescription] = useState(todo.description || '');
     const [dueDate, setDueDate] = useState(todo.dueDate || '');
-    const [priority, setPriority] = useState<TodoPriority>(todo.priority || 'low');
+    const [priority, setPriority] = useState<TodoPriority | undefined>(todo.priority);
     const [labels, setLabels] = useState<Label[]>(todo.labels || []);
     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
     const [editingLabel, setEditingLabel] = useState<EditingLabel | null>(null);
@@ -94,20 +95,16 @@ export const TodoModal: React.FC<TodoModalProps> = ({
         }
     };
 
+    const getPriorityColor = (priority: TodoPriority): string =>
+        priority === 'high' ? '#EF4444' :
+            priority === 'medium' ? '#F59E0B' :
+                '#10B981';
+
     return (
         <div className={styles.modalOverlay} onClick={handleOverlayClick}>
             <div className={styles.modal} onClick={e => e.stopPropagation()}>
                 <div className={styles.modalHeader}>
                     <div className={styles.headerActions}>
-                        <Button
-                            variant="secondary"
-                            size="sm"
-                            onClick={() => setShowDeleteConfirmation(true)}
-                            startIcon={<LuTrash2 />}
-                            className={styles.deleteButton}
-                        >
-                            Delete
-                        </Button>
                         <Button
                             variant="secondary"
                             size="sm"
@@ -123,7 +120,13 @@ export const TodoModal: React.FC<TodoModalProps> = ({
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
                             className={styles.titleInput}
+                            placeholder="Task title"
                         />
+                        {priority && (
+                            <div className={styles.priorityLabel} style={{ color: getPriorityColor(priority) }}>
+                                {priority.charAt(0).toUpperCase() + priority.slice(1)}
+                            </div>
+                        )}
                         <div className={styles.metadataList}>
                             {labels.length > 0 && (
                                 <div className={styles.labelList}>
@@ -146,6 +149,7 @@ export const TodoModal: React.FC<TodoModalProps> = ({
                                     <span>{formatDateTime(dueDate).time}</span>
                                 </div>
                             )}
+
                         </div>
                     </div>
                 </div>
@@ -238,8 +242,11 @@ export const TodoModal: React.FC<TodoModalProps> = ({
                             onDateChange={setDueDate}
                         />
                         <PriorityPicker
-                            priority={priority}
-                            onPriorityChange={setPriority}
+                            priority={priority || 'medium'}
+                            onPriorityChange={(newPriority) => {
+                                setPriority(newPriority);
+                                onUpdate({ priority: newPriority });
+                            }}
                         />
                     </div>
                 </div>

@@ -1,43 +1,51 @@
+import { authService } from '@/services/authService';
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
-
-const DEFAULT_USER = {
-    id: '1',
-    email: 'demo@example.com',
-    name: 'Demo User',
-    password: 'demo123' // En producción, nunca almacenar contraseñas en texto plano
-};
 
 interface User {
     id: string;
     email: string;
     name: string;
-    avatar?: string;
 }
 
 interface AuthStore {
     user: User | null;
     isAuthenticated: boolean;
+    isLoading: boolean;
+    error: string | null;
     login: (email: string, password: string) => Promise<void>;
     logout: () => void;
+    clearError: () => void;
 }
 
 export const useAuthStore = create<AuthStore>()(
     devtools((set) => ({
         user: null,
         isAuthenticated: false,
+        isLoading: false,
+        error: null,
 
         login: async (email: string, password: string) => {
-            if (email === DEFAULT_USER.email && password === DEFAULT_USER.password) {
-                const { password: _, ...user } = DEFAULT_USER;
-                set({ user, isAuthenticated: true });
-            } else {
-                throw new Error('Invalid credentials');
+            try {
+                set({ isLoading: true, error: null });
+                const user = await authService.login({ email, password });
+                set({ user, isAuthenticated: true, isLoading: false });
+            } catch (error) {
+                set({
+                    error: 'Invalid email or password',
+                    isLoading: false,
+                    isAuthenticated: false,
+                    user: null
+                });
             }
         },
 
         logout: () => {
             set({ user: null, isAuthenticated: false });
         },
+
+        clearError: () => {
+            set({ error: null });
+        }
     }))
 ); 
